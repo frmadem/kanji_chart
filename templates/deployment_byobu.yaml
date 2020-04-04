@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kanjis.fullname" . }}-byobu
+  labels:
+    {{- include "kanjis.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "kanjis.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "kanjis.selectorLabels" . | nindent 8 }}
+        concern: byobu
+    spec:
+      containers:
+        - name: byobu
+          image: "{{ .Values.byobu.image }}:{{ .Values.byobu.tag}}"
+          imagePullPolicy: {{ .Values.api.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
