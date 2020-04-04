@@ -12,9 +12,4 @@ spec:
           backend: 
             serviceName: {{ include "kanjis.fullname" . }}-api
             servicePort: 80
-        - path: /
-          backend: 
-            serviceName: {{ include "kanjis.fullname" . }}-byobu
-            servicePort: 80
-
 

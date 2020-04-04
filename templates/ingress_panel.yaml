@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "kanjis.fullname" . }}-byobu
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /(.*)
+          backend: 
+            serviceName: {{ include "kanjis.fullname" . }}-byobu
+            servicePort: 80
+
+
